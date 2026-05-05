@@ -1,0 +1,285 @@
+/* --- Global Variables & Resets --- */
+:root {
+  --bg-color: #ffffff;
+  --text-main: #333333;
+  --text-muted: #555555;
+  --card-bg: #f9f9f9;
+  --border-color: #dddddd;
+  --editorial-bg: #f0f0f0;
+  --editorial-border: #e0e0e0;
+  --header-bg: #ffffff; /* Classic news white */
+  --augusta-green: #006747;
+}
+
+[data-theme="dark"] {
+  --bg-color: #121212;
+  --text-main: #e0e0e0;
+  --text-muted: #a0a0a0;
+  --card-bg: #1e1e1e;
+  --border-color: #333333;
+  --editorial-bg: #2a2a2a;
+  --editorial-border: #444444;
+  --header-bg: #121212;
+}
+
+* {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+
+body {
+  font-family: 'Georgia', serif;
+  background-color: var(--bg-color);
+  color: var(--text-main);
+  line-height: 1.6;
+  transition: background-color 0.3s, color 0.3s;
+}
+
+/* --- Masthead (Header) Re-engineered --- */
+.site-header {
+  background-color: var(--header-bg);
+  padding: 10px 20px 0 20px; /* Reduced top padding */
+}
+
+.header-inner {
+  max-width: 1400px; /* Widened to allow for larger text */
+  margin: 0 auto;
+}
+
+.top-row {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  position: relative;
+  /* This pushes the logo to fill the height */
+  padding: 10px 0; 
+}
+
+.logo {
+  font-family: 'Times New Roman', serif;
+  /* ENLARGED: Significantly increased size */
+  font-size: 7.5rem; 
+  font-weight: 700;
+  color: var(--augusta-green);
+  letter-spacing: -4px; /* Tighter letters for that classic ink look */
+  text-decoration: none;
+  line-height: 0.9; /* Pulls the text closer to the rows above/below */
+  text-transform: none;
+}
+
+.news-suffix {
+  font-size: 0.65em; /* Scaled down relative to the massive 'Augly' */
+  letter-spacing: 2px;
+  text-transform: uppercase;
+  color: var(--text-main);
+  margin-left: 10px;
+  vertical-align: middle;
+}
+
+/* Theme Toggle remains pinned right */
+.theme-toggle-icon {
+  position: absolute;
+  right: 0;
+  top: 50%;
+  transform: translateY(-50%);
+  font-size: 1.5rem;
+  background: none;
+  border: none;
+  cursor: pointer;
+}
+
+/* Meta Bar (The Dateline) */
+.header-meta {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  border-top: 4px double var(--border-color); /* Double line for prestige */
+  border-bottom: 1px solid var(--border-color);
+  padding: 10px 0;
+  font-family: 'Helvetica Neue', sans-serif;
+  font-size: 0.9rem;
+  color: var(--text-muted);
+  margin-top: 0; /* Snaps it up against the logo */
+}
+
+
+.meta-left, .meta-right {
+  flex: 1; /* Ensures equal width to keep center-center */
+}
+
+.meta-left {
+  text-align: left;
+  text-transform: uppercase;
+  letter-spacing: 1px;
+}
+
+.meta-center {
+  padding: 0 15px;
+  color: var(--augusta-green);
+  font-weight: bold;
+}
+
+.meta-right {
+  text-align: right;
+  /* font-style: italic; */
+  font-size: 1.2rem;
+}
+
+/* --- Layout Grids --- */
+.briefing-container {
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 30px 20px;
+}
+
+.featured-primary {
+  margin-bottom: 60px;
+}
+
+.main-featured-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+  gap: 30px;
+  border-bottom: 2px solid var(--border-color);
+  padding-bottom: 40px;
+  margin-bottom: 40px;
+}
+
+.secondary-featured-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+  gap: 20px;
+  border-bottom: 2px solid var(--border-color);
+  padding-bottom: 40px;
+  margin-bottom: 40px;
+}
+
+.bottom-section {
+  display: grid;
+  grid-template-columns: 2fr 1fr;
+  gap: 40px;
+}
+
+/* --- Card Styles --- */
+.card {
+  display: flex;
+  flex-direction: column;
+}
+
+.card-img {
+  height: 200px;
+  background-size: cover;
+  background-position: center;
+  border-radius: 4px;
+  margin-bottom: 15px;
+  background-color: var(--editorial-bg);
+}
+
+.hero-card {
+  padding: 40px;
+  background-color: var(--card-bg);
+  border-radius: 8px;
+  border: 1px solid var(--border-color);
+}
+
+.mini-card {
+  background: var(--card-bg);
+  padding: 15px;
+  border-left: 4px solid var(--augusta-green);
+  border-radius: 4px;
+  display: flex;
+  flex-direction: column;
+  height: 100%;
+}
+
+.badge {
+  display: inline-block;
+  padding: 2px 8px;
+  background: var(--editorial-bg);
+  font-size: 0.7rem;
+  text-transform: uppercase;
+  font-weight: bold;
+  margin-bottom: 10px;
+  width: fit-content;
+}
+
+/* Editorial Source Badge */
+.editorial-badge {
+  margin-top: auto; /* Pushes to bottom */
+  padding-top: 10px;
+  font-family: 'Helvetica Neue', sans-serif;
+  font-size: 0.7rem;
+  color: var(--text-muted);
+  text-transform: uppercase;
+  letter-spacing: 1px;
+}
+
+/* Latest Briefs Styling */
+.brief-item {
+  padding: 10px 0;
+  border-bottom: 1px solid var(--editorial-border);
+}
+
+.brief-item h4 a {
+  text-decoration: none;
+  color: var(--text-main);
+  font-size: 1rem;
+  font-weight: 500;
+}
+
+.brief-item h4 a:hover {
+  color: var(--augusta-green);
+}
+
+.custom-links-list {
+  list-style: none;
+  margin-top: 10px;
+}
+
+.custom-links-list li {
+  margin-bottom: 8px;
+}
+
+.custom-links-list a {
+  color: var(--augusta-green);
+  text-decoration: none;
+  font-size: 0.9rem;
+}
+
+.custom-links-list a:hover {
+  text-decoration: underline;
+}
+
+/* Responsive Mobile Stacking */
+@media (max-width: 768px) {
+  .header-meta {
+    flex-direction: column;
+    gap: 5px;
+  }
+  .meta-left, .meta-right {
+    text-align: center;
+  }
+  .bottom-section {
+    grid-template-columns: 1fr;
+  }
+    .logo {
+        font-size: 3.5rem; /* Scales back down for mobile phones */
+        letter-spacing: -1px;
+  }
+}
+
+/* Make headlines turn green when hovered */
+.hero-card a:hover h1,
+.card.main a:hover h2,
+.mini-card a:hover h4 {
+    color: var(--augusta-green) !important;
+    transition: color 0.2s ease-in-out;
+}
+
+/* Subtle lift effect for images */
+.card-img:hover {
+    opacity: 0.9;
+    transform: scale(1.01);
+    transition: all 0.2s ease-in-out;
+}

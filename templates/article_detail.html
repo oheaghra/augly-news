@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>{{ article.headline }} - AuglyNEWS</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+    <style>
+        .article-view { max-width: 800px; margin: 60px auto; padding: 20px; }
+        .article-body { font-size: 1.2rem; line-height: 1.8; margin-top: 30px; white-space: pre-wrap; }
+        .article-header { border-bottom: 2px solid var(--augusta-green); padding-bottom: 20px; }
+    </style>
+</head>
+<body>
+    <div class="article-view">
+        <a href="/">← Back to Briefing</a>
+        <div class="article-header">
+            <span class="badge">{{ article.category }}</span>
+            <h1>{{ article.headline }}</h1>
+            <p>By AuglyNEWS Staff • {{ article.date_added.strftime('%B %d, %Y') }}</p>
+        </div>
+        
+        {% if article.image_url %}
+        <img src="{{ article.image_url }}" style="width: 100%; margin-top: 20px; border-radius: 8px;">
+        {% endif %}
+
+        <div class="article-body">
+            {{ article.body }}
+        </div>
+    </div>
+</body>
+</html>

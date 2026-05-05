@@ -1,0 +1,27 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <title>Original Content - AuglyNEWS</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+</head>
+<body>
+    <div class="briefing-container">
+        <h1>AuglyNEWS Originals</h1>
+        <a href="/">← Back to Home</a>
+        <hr style="margin: 20px 0; border: 1px solid var(--border-color);">
+
+        <div class="main-featured-grid">
+            {% for article in articles %}
+            <article class="card main">
+                {% if article.image_url %}
+                <div class="card-img" style="background-image: url('{{ article.image_url }}')"></div>
+                {% endif %}
+                <span class="badge">{{ article.category }}</span>
+                <h2><a href="/article/{{ article.id }}" style="text-decoration:none; color:inherit;">{{ article.headline }}</a></h2>
+                <p>{{ article.body[:150] }}...</p>
+            </article>
+            {% endfor %}
+        </div>
+    </div>
+</body>
+</html>

@@ -1,0 +1,118 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>AuglyNEWS - 2026</title>
+  <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+</head>
+<body>
+
+<header class="site-header">
+  <div class="header-inner">
+    <div class="top-row">
+      <h1 class="logo">Augly<span class="news-suffix">NEWS</span></h1>
+      <button id="theme-toggle" class="theme-toggle-icon" title="Toggle Theme">🌙</button>
+    </div>
+    
+    <div class="header-meta">
+      <div class="meta-left">
+        <span id="current-date"></span>
+      </div>
+      <div class="meta-center">
+        <span class="ornament">✦</span>
+      </div>
+      <div class="meta-right">
+        <span class="motto">It's not Augusta if it isn't Augly</span>
+      </div>
+    </div>
+  </div>
+</header>
+
+<div class="briefing-container">
+  
+  <section class="featured-primary">
+    {% if hero %}
+    <div class="hero-card">
+      <span class="badge">{{ hero.category }}</span>
+      <a href="{% if hero.source == 'Original' %}/article/{{ hero.id }}{% else %}{{ hero.external_link }}{% endif %}" 
+         {% if hero.source != 'Original' %}target="_blank"{% endif %} 
+         style="text-decoration: none; color: inherit;">
+        <h1>{{ hero.headline }}</h1>
+      </a>
+      <div class="editorial-badge">{{ hero.source }}</div>
+    </div>
+    {% endif %}
+  </section>
+
+  <section class="main-featured-grid">
+    {% for article in main_featured %}
+    <article class="card main">
+      <a href="{% if article.source == 'Original' %}/article/{{ article.id }}{% else %}{{ article.external_link }}{% endif %}" 
+         {% if article.source != 'Original' %}target="_blank"{% endif %}>
+        {% if article.image_url and article.image_url != 'None' %}
+        <div class="card-img" style="background-image: url('{{ article.image_url }}')"></div>
+        {% endif %}
+      </a>
+      
+      <span class="badge">{{ article.category }}</span>
+      
+      <a href="{% if article.source == 'Original' %}/article/{{ article.id }}{% else %}{{ article.external_link }}{% endif %}" 
+         {% if article.source != 'Original' %}target="_blank"{% endif %} 
+         style="text-decoration: none; color: inherit;">
+        <h2>{{ article.headline }}</h2>
+      </a>
+      
+      <div class="editorial-badge">{{ article.source }}</div>
+    </article>
+    {% endfor %}
+  </section>
+
+  <section class="secondary-featured-grid">
+    {% for article in secondary_featured %}
+    <div class="mini-card">
+      <span class="badge">{{ article.category }}</span>
+      <a href="{% if article.source == 'Original' %}/article/{{ article.id }}{% else %}{{ article.external_link }}{% endif %}" 
+         {% if article.source != 'Original' %}target="_blank"{% endif %} 
+         style="text-decoration: none; color: inherit;">
+        <h4>{{ article.headline }}</h4>
+      </a>
+      <div class="editorial-badge">{{ article.source }}</div>
+    </div>
+    {% endfor %}
+  </section>
+
+  <section class="bottom-section">
+    <div class="catchall-list">
+      <h3>The Latest Briefs</h3>
+      {% for brief in briefs %}
+      <div class="brief-item">
+          <h4>
+            <a href="{% if brief.source == 'Original' %}/article/{{ brief.id }}{% else %}{{ brief.external_link }}{% endif %}" 
+               {% if brief.source != 'Original' %}target="_blank"{% endif %}>
+               {{ brief.headline }}
+            </a>
+          </h4>
+      </div>
+      {% endfor %}
+    </div>
+    
+    <div class="custom-links">
+        {% for category, links in grouped_links.items() %}
+            <h3 style="margin-top: 20px; border-bottom: 1px solid var(--augusta-green);">{{ category }}</h3>
+            <ul class="custom-links-list">
+            {% for link in links %}
+                <li><a href="{{ link.url }}" target="_blank">{{ link.label }}</a></li>
+            {% endfor %}
+            </ul>
+        {% endfor %}
+        
+        <hr>
+        <a href="/admin" style="font-size: 0.8rem; color: var(--text-muted);">Admin Login</a>
+    </div>
+  </section>
+</div>
+
+<script src="{{ url_for('static', filename='script.js') }}"></script>
+</body>
+</html>

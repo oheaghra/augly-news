@@ -1,0 +1,28 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Feed Manager - AuglyNEWS</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+</head>
+<body style="padding: 40px;">
+    <h1>RSS Feed Manager</h1>
+    <a href="/admin">← Back to Dashboard</a> | 
+    <a href="/sync" style="font-weight:bold; color:var(--augusta-green);">[ SYNC ALL FEEDS ]</a>
+
+    <div class="admin-form" style="margin-top:20px;">
+        <h3>Add New RSS Source</h3>
+        <form method="POST">
+            <input type="text" name="name" placeholder="Source Name (e.g. WJBF)" required>
+            <input type="text" name="url" placeholder="RSS URL" required>
+            <button type="submit">Add Feed</button>
+        </form>
+    </div>
+
+    <h3>Active Feeds</h3>
+    <ul>
+        {% for f in feeds %}
+        <li>{{ f.name }} - <code>{{ f.url }}</code></li>
+        {% endfor %}
+    </ul>
+</body>
+</html>

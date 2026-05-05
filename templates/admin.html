@@ -1,0 +1,104 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>AuglyNEWS Admin</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+    <style>
+        .admin-form { background: var(--card-bg); padding: 20px; margin-bottom: 40px; border: 1px solid var(--border-color); }
+        input, select { margin-bottom: 10px; display: block; width: 100%; padding: 8px; }
+        table { width: 100%; border-collapse: collapse; margin-top: 20px; }
+        th, td { border: 1px solid var(--border-color); padding: 10px; text-align: left; }
+    </style>
+</head>
+<body style="padding: 40px;">
+    <h1>AuglyNEWS Dashboard</h1>
+    <a href="/">← Back to Site</a>
+
+    <div class="admin-form">
+        <h3>Add New Content</h3>
+        <form method="POST">
+            <input type="number" name="rank" placeholder="Rank (0=Hero, 1-6=Main, 7+=Secondary, 99=Brief)" required>
+            <input type="text" name="category" placeholder="Category (e.g. Local, Politics)">
+            <input type="text" name="headline" placeholder="Headline" required>
+            <input type="text" name="source" placeholder="Source (e.g. WJBF, Original)">
+            <input type="text" name="image_url" placeholder="Image URL">
+            <input type="text" name="external_link" placeholder="External Link URL">
+            <button type="submit" style="background: var(--augusta-green); color: white; padding: 10px 20px; border: none; cursor: pointer;">Publish to AuglyNEWS</button>
+        </form>
+    </div>
+
+    <div class="admin-form">
+        <h3>Write Original Content</h3>
+        <form method="POST">
+            <input type="hidden" name="source" value="Original">
+            <input type="number" name="rank" placeholder="Rank">
+            <input type="text" name="headline" placeholder="Headline" required>
+            <textarea name="body" placeholder="Paste your article text here..." rows="10" style="width:100%; margin-bottom:10px;"></textarea>
+            <button type="submit">Publish Original Article</button>
+        </form>
+    </div>
+
+    <h3>Current Live Content</h3>
+    <table>
+        <tr>
+            <th>Rank</th>
+            <th>Headline</th>
+            <th>Source</th>
+            <th>Actions</th>
+        </tr>
+        {% for a in articles %}
+        <td>
+            <a href="/edit/{{ a.id }}" style="color: var(--augusta-green); margin-right: 10px;">Edit/Promote</a>
+            <a href="/delete/{{ a.id }}" style="color: red;">Delete</a>
+        </td>
+        <tr>
+            <td>{{ a.rank }}</td>
+            <td>{{ a.headline }}</td>
+            <td>{{ a.source }}</td>
+            <td><a href="/delete/{{ a.id }}" style="color: red;">Delete</a></td>
+        </tr>
+        {% endfor %}
+    </table>
+
+    <div class="admin-form">
+        <h3>Add Quick Link / Resource</h3>
+        <form method="POST">
+            <input type="text" name="link_category" placeholder="Group Header (e.g., Local Gov)">
+            <input type="text" name="link_label" placeholder="Link Text" required>
+            <input type="text" name="link_url" placeholder="URL" required>
+            <input type="number" name="link_order" placeholder="Sort Order (0, 1, 2...)">
+            <button type="submit">Add Link</button>
+        </form>
+    </div>
+
+    <h3>Manage Existing Links</h3>
+    <table>
+        <tr>
+            <th>Category (Header)</th>
+            <th>Label</th>
+            <th>Sort Order</th>
+            <th>Actions</th>
+        </tr>
+        {% for l in links %}
+        <tr>
+            <form action="/update_link/{{ l.id }}" method="POST">
+                <td>
+                    <input type="text" name="category" value="{{ l.category }}" style="width: 120px;">
+                </td>
+                <td>
+                    <input type="text" name="label" value="{{ l.label }}" style="width: 150px;">
+                </td>
+                <td>
+                    <input type="number" name="order" value="{{ l.order }}" style="width: 50px;">
+                </td>
+                <td>
+                    <button type="submit" style="background: var(--augusta-green); color: white; border: none; padding: 5px 10px; cursor: pointer;">Save</button>
+                    <a href="/delete_link/{{ l.id }}" style="color:red; margin-left: 10px; font-size: 0.8rem;" onclick="return confirm('Delete this link?')">Delete</a>
+                </td>
+            </form>
+        </tr>
+        {% endfor %}
+    </table>
+
+</body>
+</html>

@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Edit Article - AuglyNEWS</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+    <style>
+        .edit-container { max-width: 800px; margin: 50px auto; padding: 20px; background: var(--card-bg); border: 1px solid var(--border-color); }
+        input, textarea { width: 100%; padding: 10px; margin: 10px 0; display: block; }
+        label { font-weight: bold; font-family: sans-serif; font-size: 0.8rem; }
+    </style>
+</head>
+<body>
+    <div class="edit-container">
+        <h2>Edit / Promote Content</h2>
+        <form method="POST">
+            <label>Headline</label>
+            <input type="text" name="headline" value="{{ article.headline }}">
+            
+            <label>Rank (0=Hero, 1-6=Main Grid, 99=Brief)</label>
+            <input type="number" name="rank" value="{{ article.rank }}">
+            
+            <label>Category</label>
+            <input type="text" name="category" value="{{ article.category }}">
+
+            <label>Source</label>
+            <input type="text" name="source" value="{{ article.source }}">
+
+            <label>Image URL (Paste VIP Photo Link here)</label>
+            <input type="text" name="image_url" value="{{ article.image_url }}">
+
+            <label>Article Body (For Originals)</label>
+            <textarea name="body" rows="10">{{ article.body }}</textarea>
+
+            <button type="submit" style="background: var(--augusta-green); color: white; border: none; padding: 15px; width: 100%; cursor: pointer;">Save Changes</button>
+        </form>
+        <br>
+        <a href="/admin">Cancel and go back</a>
+    </div>
+</body>
+</html>
