@@ -1,1 +1,3 @@
-app.config['SECRET_KEY'] = 'a-very-long-and-random-string-12345'
+augly.db
+__pycache__/
+.env

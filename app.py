@@ -35,7 +35,7 @@ basedir = os.path.abspath(os.path.dirname(__file__))
 app.config['SQLALCHEMY_DATABASE_URI'] = 'sqlite:///' + os.path.join(basedir, 'augly.db')
 app.config['SQLALCHEMY_TRACK_MODIFICATIONS'] = False
 
-app.config['SECRET_KEY'] = 'a-very-long-and-random-string-12345'
+app.config['SECRET_KEY'] = os.environ.get('SECRET_KEY') or 'local-testing-key-123'
 
 db = SQLAlchemy(app)
 
